@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     // 예외 에러 빌더
-    private ResponseEntity<ApiResponse<Void>> buildErrorResponse(HttpStatus status, String message) {
+    private ResponseEntity<ApiResponse> buildErrorResponse(HttpStatus status, String message) {
         return ResponseEntity
                 .status(status)
                 .body(ApiResponse
@@ -27,7 +27,13 @@ public class GlobalExceptionHandler {
 
     //
     @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ApiResponse<Void>> handleGlobalException(BaseException ex) {
+    public ResponseEntity<ApiResponse> handleGlobalException(BaseException ex) {
         return buildErrorResponse(HttpStatus.valueOf(ex.getStatusCode()), ex.getResponseMessage());
+    }
+
+    //
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 }

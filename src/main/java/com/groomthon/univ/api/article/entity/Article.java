@@ -2,15 +2,15 @@ package com.groomthon.univ.api.article.entity;
 
 import com.groomthon.univ.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder(toBuilder = true)
 @Table(name = "article")
 public class Article extends BaseTimeEntity {
 
@@ -19,9 +19,11 @@ public class Article extends BaseTimeEntity {
     @Column(name = "article_id")
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "article_title", nullable = false, length = 100)
+    @Size(max = 100, message = "제목은 최대 100자까지 입력 가능합니다.")
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "article_content", nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "내용은 비어 있을 수 없습니다.")
     private String content;
 }
