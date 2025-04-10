@@ -13,8 +13,9 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openAPI() {
 
-        Server server = new Server();
-        server.setUrl("/");
+        Server localServer = new Server()
+                .url("http://localhost:8080")
+                .description("Univ study server");
 
         return new OpenAPI()
                 .info(new Info()
@@ -22,6 +23,6 @@ public class SwaggerConfig {
                         .description("구름톤 유니브 스프링 스터디 REST API Document")
                         .version("1.0.0"))
                 .components(new Components())
-                .addServersItem(server);
+                .addServersItem(localServer);
     }
 }

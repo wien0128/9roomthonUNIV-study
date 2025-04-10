@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Article", description = "스터디 게시글 API")
+@Tag(name = "Article", description = "스터디 게시글 관리 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/posts")
+@RequestMapping("/api/v1/articles")
 public class ArticleController {
 
     private final ArticleService articleService;

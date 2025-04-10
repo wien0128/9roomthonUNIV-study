@@ -26,4 +26,9 @@ public class Article extends BaseTimeEntity {
     @Column(name = "article_content", nullable = false, columnDefinition = "TEXT")
     @NotBlank(message = "내용은 비어 있을 수 없습니다.")
     private String content;
+
+    public void updateArticle(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

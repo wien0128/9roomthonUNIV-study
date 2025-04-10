@@ -1,11 +1,14 @@
 package com.groomthon.univ.common.handler;
 
+import com.groomthon.univ.api.article.controller.ArticleController;
 import com.groomthon.univ.common.exception.BaseException;
 import com.groomthon.univ.common.response.ApiResponse;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * <p>모든 컨트롤러에서 발생하는 예외 처리</p>
  */
 
+// @RestControllerAdvice(annotations = {RestController.class}, basePackageClasses = {ArticleController.class})
+@Hidden
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

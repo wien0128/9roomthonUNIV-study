@@ -9,6 +9,7 @@ import com.groomthon.univ.common.response.ErrorStatus;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,19 +50,15 @@ public class ArticleService {
     }
 
     // 게시글 수정
+    @Transactional
     public ArticleResponseDTO updateArticle(Long id, @Valid ArticleRequestDTO articleRequest) {
 
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ErrorStatus.RESOURCE_NOT_FOUND.getMessage()));
 
-        article.toBuilder()
-                .title(articleRequest.getTitle())
-                .content(articleRequest.getContent())
-                .build();
+        article.updateArticle(articleRequest.getTitle(), articleRequest.getContent());
 
-        Article updatedArticle = articleRepository.save(article);
-
-        return ArticleResponseDTO.toDTO(updatedArticle);
+        return ArticleResponseDTO.toDTO(article);
     }
 
     // 게시글 단건 삭제
