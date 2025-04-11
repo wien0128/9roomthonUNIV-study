@@ -8,9 +8,6 @@ import org.springframework.http.ResponseEntity;
 /**
  *  <h3>ApiResponse</h3>
  *  <p>API 응답 표준화 유틸리티 클래스</p>
- *  <ul>
- *      <li></li>
- *  </ul>
  */
 
 @Builder

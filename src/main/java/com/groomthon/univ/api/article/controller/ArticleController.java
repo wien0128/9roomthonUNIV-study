@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * <h3>게시글 컨트롤러</h3>
+ * <p>게시글 등록, 단건/전체 조회, 수정, 삭제 컨트롤러(엔드포인트)</p>
+ */
+
 @Tag(name = "Article", description = "스터디 게시글 관리 API")
 @RestController
 @RequiredArgsConstructor

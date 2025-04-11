@@ -12,7 +12,7 @@ public enum ErrorStatus {
     /// 400 BAD_REQUEST
     INVALID_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
     MISSING_REQUIRED_FIELD(HttpStatus.BAD_REQUEST, "필수 필드가 누락되었습니다."),
-    VALIDATION_REQUEST_MISSING_EXCEPTION(HttpStatus.BAD_REQUEST, "요청 값이 입력되지 않았습니다."),
+    VALIDATION_MISSING_PARAMETER(HttpStatus.BAD_REQUEST, "요청 값이 입력되지 않았습니다."),
 
     /// 401 UNAUTHORIZED
     USER_UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"인증되지 않은 사용자입니다."),

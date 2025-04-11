@@ -1,4 +1,4 @@
-package com.groomthon.univ.api.week1.controller;
+package com.groomthon.univ.api.hello.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

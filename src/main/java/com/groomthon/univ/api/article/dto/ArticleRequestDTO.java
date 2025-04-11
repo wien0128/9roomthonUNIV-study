@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ArticleRequestDTO {
 
-    @NotBlank
+    @NotBlank(message = "제목은 비어 있을 수 없습니다.")
     @Size(max = 100, message = "제목은 최대 100자까지 입력 가능합니다.")
     private String title;
 
