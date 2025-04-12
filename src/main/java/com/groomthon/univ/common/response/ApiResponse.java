@@ -39,19 +39,19 @@ public class ApiResponse<T> {
         return ResponseEntity.status(status.getStatusCode()).body(response);
     }
 
-    public static ApiResponse<Void> fail_only(ErrorStatus status) {
-        return ApiResponse.<Void>builder()
-                .status(status.getStatusCode())
-                .success(false)
-                .message(status.getMessage())
-                .build();
-    }
-
     public static ApiResponse<Void> fail(int status, String message) {
         return ApiResponse.<Void>builder()
                 .status(status)
                 .success(false)
                 .message(message)
+                .build();
+    }
+
+    public static ApiResponse<Void> fail_only(ErrorStatus status) {
+        return ApiResponse.<Void>builder()
+                .status(status.getStatusCode())
+                .success(false)
+                .message(status.getMessage())
                 .build();
     }
 }
