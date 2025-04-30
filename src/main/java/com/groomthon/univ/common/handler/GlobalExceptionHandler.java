@@ -74,7 +74,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public ResponseEntity<ApiResponse> handleEmptyResultDataAccessException(final EmptyResultDataAccessException ex) {
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ApiResponse.fail(HttpStatus.NOT_FOUND.value(),
                         ErrorStatus.RESOURCE_NOT_FOUND.getMessage()));
     }
