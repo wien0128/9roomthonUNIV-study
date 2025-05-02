@@ -14,9 +14,11 @@ public enum SuccessStatus {
     SEND_ARTICLE_SUCCESS(HttpStatus.OK,"게시글 조회 성공"),
     DELETE_MEMO_SUCCESS(HttpStatus.OK,"게시글 삭제 성공"),
     UPDATE_MEMO_SUCCESS(HttpStatus.OK,"게시글 수정 성공"),
+    SEND_LOGIN_SUCCESS(HttpStatus.OK,"로그인 성공"),
 
     /// 201
     CREATE_ARTICLE_SUCCESS(HttpStatus.CREATED, "게시판 등록 성공"),
+    SEND_SIGNUP_SUCCESS(HttpStatus.CREATED, "회원가입 성공"),
 
     ;
 
