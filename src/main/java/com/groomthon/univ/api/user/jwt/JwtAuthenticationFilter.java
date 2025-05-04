@@ -5,6 +5,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,17 +20,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
             throws ServletException, IOException {
         try {
             String token = extractToken(request);
 
-            if (StringUtils.hasText(token) && jwtService) {
+            if (StringUtils.hasText(token) && jwtService.isTokenValid(token)) {
+                Authentication auth = jwtService.getAuthentication(token);
 
+                SecurityContextHolder.getContext().setAuthentication(auth);
             }
         } catch (Exception e) {
-
+            System.out.println("JWT Authentication Filter Failed: " + e.getMessage());
         }
+
+        filterChain.doFilter(request, response);
     }
 
     private String extractToken(HttpServletRequest request) {
