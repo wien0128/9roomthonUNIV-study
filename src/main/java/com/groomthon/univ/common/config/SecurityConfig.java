@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -88,9 +88,18 @@ public class SecurityConfig {
                 )
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                        .accessDeniedHandler((request, response, accessDeniedException) ->
-                                response.sendError(HttpStatus.FORBIDDEN.value(), "접근 권한이 없습니다."
-                                ))
+                        .accessDeniedHandler((req, resp, ex) -> {
+                            resp.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                            resp.setStatus(HttpStatus.FORBIDDEN.value());
+                            resp.getWriter().write("""
+                                    {
+                                        "status": 403,
+                                        "error": "FORBIDDEN",
+                                        "message": "접근 권한이 없습니다"
+                                    }
+                                    """);
+
+                        })
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class);
 

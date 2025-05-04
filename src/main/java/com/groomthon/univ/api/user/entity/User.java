@@ -15,7 +15,7 @@ import java.util.Collections;
 @Getter
 @Setter
 @Builder(toBuilder = true)
-@Table(name = "USER")
+@Table(name = "`users`")
 public class User extends BaseTimeEntity implements UserDetails {
 
     @Id
