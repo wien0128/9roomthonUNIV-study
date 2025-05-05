@@ -24,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -54,14 +54,14 @@ public class SecurityConfig {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                         CorsConfiguration config = new CorsConfiguration();
-                        config.setAllowedOrigins(Arrays.asList(
-                                "http://localhost:8080",
-                                "http://127.0.0.1:5500"
+                        config.setAllowedOriginPatterns(List.of(
+                                "http://localhost:*",
+                                "http://127.0.0.1:*"
                         ));
-                        config.setAllowedMethods(Arrays.asList(
-                                "GET", "POST", "PUT", "DELETE", "OPTIONS"
+                        config.setAllowedMethods(List.of(
+                                "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
                         ));
-                        config.setAllowedHeaders(Arrays.asList(
+                        config.setAllowedHeaders(List.of(
                                 "Authorization",
                                 "Content-Type",
                                 "X-Requested-With"
