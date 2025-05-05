@@ -24,18 +24,24 @@ public class UserService {
 
     public void signupUser(SignupRequestDto signupDto) {
 
+        String email = signupDto.getEmail().toLowerCase();
+
         User user = User.builder()
-                .email(signupDto.getEmail())
+                .email(email)
                 .username(signupDto.getUsername())
                 .password(passwordEncoder.encode(signupDto.getPassword()))
-                .role(Role.USER)
+                .role(Role.ROLE_USER)
                 .build();
 
         userRepository.save(user);
     }
 
+    @Transactional(readOnly = true)
     public String loginUser(LoginRequestDto loginDto) {
-        User user = userRepository.findByEmail(loginDto.getEmail())
+
+        String email = loginDto.getEmail().toLowerCase();
+
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException(ErrorStatus.USER_NOT_FOUND.getMessage()));
 
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {

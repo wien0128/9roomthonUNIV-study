@@ -78,8 +78,11 @@ public class JwtService {
         String email = claims.getSubject();
         String role = claims.get("role", String.class);
 
-        User principal = new User(email, "",
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_"+ role)));
+        User principal = new User(
+                email,
+                null,
+                Collections.singletonList(new SimpleGrantedAuthority(role))
+        );
 
         return new UsernamePasswordAuthenticationToken(
                 principal,
