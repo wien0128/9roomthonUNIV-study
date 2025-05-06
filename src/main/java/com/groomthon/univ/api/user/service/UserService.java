@@ -42,7 +42,7 @@ public class UserService {
         String email = loginDto.getEmail().toLowerCase();
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException(ErrorStatus.USER_NOT_FOUND.getMessage()));
+                .orElseThrow(() -> new NotFoundException(ErrorStatus.USER_UNAUTHORIZED.getMessage()));
 
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("이메일 혹은 비밀번호 다시 확인해보세요.");

@@ -80,7 +80,7 @@ public class JwtService {
 
         User principal = new User(
                 email,
-                null,
+                "",
                 Collections.singletonList(new SimpleGrantedAuthority(role))
         );
 
