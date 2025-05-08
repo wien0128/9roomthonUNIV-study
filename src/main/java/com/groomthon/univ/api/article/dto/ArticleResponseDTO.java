@@ -12,9 +12,12 @@ import java.time.format.DateTimeFormatter;
 @Builder
 public class ArticleResponseDTO {
 
-    private Long id;
+    private Long articleId;
     private String title;
     private String content;
+    private Long userId;
+    private String email;
+    private String username;
     private String createdAt;
     private String updatedAt;
 
@@ -23,9 +26,12 @@ public class ArticleResponseDTO {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         return ArticleResponseDTO.builder()
-                .id(article.getId())
+                .articleId(article.getId())
                 .title(article.getTitle())
                 .content(article.getContent())
+                .userId(article.getUser().getId())
+                .email(article.getUser().getEmail())
+                .username(article.getUser().getUsername())
                 .createdAt(article.getCreatedAt().format(formatter))
                 .updatedAt(article.getUpdatedAt().format(formatter))
                 .build();
