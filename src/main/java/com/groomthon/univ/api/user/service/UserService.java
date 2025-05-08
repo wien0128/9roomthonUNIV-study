@@ -50,4 +50,11 @@ public class UserService {
 
         return jwtService.generateToken(user.getEmail(), user.getRole().name());
     }
+
+    public Long getUserIdByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException(ErrorStatus.USER_UNAUTHORIZED.getMessage()));
+
+        return user.getId();
+    }
 }

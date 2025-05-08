@@ -23,17 +23,16 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(name = "email", nullable = false, unique = true, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 30)
+    @Column(name = "username", nullable = false, length = 30)
     private String username;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Role role;
 
     @Override

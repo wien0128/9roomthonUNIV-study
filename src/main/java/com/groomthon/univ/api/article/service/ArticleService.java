@@ -4,6 +4,8 @@ import com.groomthon.univ.api.article.dto.ArticleRequestDTO;
 import com.groomthon.univ.api.article.dto.ArticleResponseDTO;
 import com.groomthon.univ.api.article.entity.Article;
 import com.groomthon.univ.api.article.repository.ArticleRepository;
+import com.groomthon.univ.api.user.entity.User;
+import com.groomthon.univ.api.user.repository.UserRepository;
 import com.groomthon.univ.common.exception.NotFoundException;
 import com.groomthon.univ.common.response.ErrorStatus;
 import lombok.RequiredArgsConstructor;
@@ -23,13 +25,21 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final UserRepository userRepository;
 
     // 게시글 생성
-    public ArticleResponseDTO createArticle(ArticleRequestDTO articleRequest) {
+    public ArticleResponseDTO createArticle(
+            ArticleRequestDTO articleRequest,
+            Long userId
+            ) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(ErrorStatus.USER_UNAUTHORIZED.getMessage()));
 
         Article article = Article.builder()
                 .title(articleRequest.getTitle())
                 .content(articleRequest.getContent())
+                .user(user)
                 .build();
 
         Article savedArticle = articleRepository.save(article);

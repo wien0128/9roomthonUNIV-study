@@ -1,5 +1,6 @@
 package com.groomthon.univ.api.article.entity;
 
+import com.groomthon.univ.api.user.entity.User;
 import com.groomthon.univ.common.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -19,13 +20,17 @@ public class Article extends BaseTimeEntity {
     @Column(name = "article_id")
     private Long id;
 
-    @Column(name = "article_title", nullable = false, length = 100)
+    @Column(name = "title", nullable = false, length = 100)
     @Size(max = 100, message = "제목은 최대 100자까지 입력 가능합니다.")
     private String title;
 
-    @Column(name = "article_content", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     @NotBlank(message = "내용은 비어 있을 수 없습니다.")
     private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public void updateArticle(String title, String content) {
         this.title = title;

@@ -36,9 +36,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         } catch (Exception e) {
             System.out.println("JWT Authentication Filter Failed: " + e.getMessage());
+            response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
-            response.getWriter().print("{\"error\": \"Unauthorized\"}");
+            response.getWriter().write("""
+                                    {
+                                        "status": 401,
+                                        "error": "UNAUTHORIZED",
+                                        "message": "인증되지 않은 사용자입니다."
+                                    }
+                                    """);
             return;
         }
 

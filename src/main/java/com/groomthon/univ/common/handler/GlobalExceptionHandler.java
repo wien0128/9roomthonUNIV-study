@@ -3,6 +3,7 @@ package com.groomthon.univ.common.handler;
 import com.groomthon.univ.common.exception.BaseException;
 import com.groomthon.univ.common.response.ApiResponse;
 import com.groomthon.univ.common.response.ErrorStatus;
+import io.jsonwebtoken.JwtException;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;

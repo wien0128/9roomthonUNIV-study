@@ -3,6 +3,8 @@ package com.groomthon.univ.api.article.controller;
 import com.groomthon.univ.api.article.dto.ArticleRequestDTO;
 import com.groomthon.univ.api.article.dto.ArticleResponseDTO;
 import com.groomthon.univ.api.article.service.ArticleService;
+import com.groomthon.univ.api.user.entity.User;
+import com.groomthon.univ.api.user.service.UserService;
 import com.groomthon.univ.common.response.ApiResponse;
 import com.groomthon.univ.common.response.SuccessStatus;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +12,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +30,7 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
+    private final UserService userService;
 
     @Operation(
             summary = "게시글 등록 API",
@@ -33,9 +38,12 @@ public class ArticleController {
     )
     @PostMapping
     public ResponseEntity<ApiResponse<ArticleResponseDTO>> createArticle(
-            @RequestBody @Valid ArticleRequestDTO articleRequestDTO
+            @RequestBody @Valid ArticleRequestDTO articleRequestDTO,
+            @AuthenticationPrincipal UserDetails userDetails
     ) {
-        ArticleResponseDTO createdArticle = articleService.createArticle(articleRequestDTO);
+        Long userId = userService.getUserIdByEmail(userDetails.getUsername());
+
+        ArticleResponseDTO createdArticle = articleService.createArticle(articleRequestDTO, userId);
 
         return ApiResponse.success(SuccessStatus.CREATE_ARTICLE_SUCCESS, createdArticle);
     }
